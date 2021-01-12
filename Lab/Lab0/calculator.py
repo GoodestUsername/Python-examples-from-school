@@ -1,8 +1,4 @@
-import math
-
-
-def calculate_hypotenuse(a, b):
-    return math.sqrt(a ** 2 + b ** 2)
+from Lab.Lab0.hypotenuse import calculate_hypotenuse
 
 
 def handle_operator_selection(operator, a, b):
