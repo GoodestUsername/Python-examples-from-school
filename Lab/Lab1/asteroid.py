@@ -4,6 +4,7 @@ from itertools import count
 Contains class representing an asteroid called Asteroid.
 """
 
+
 class Asteroid:
     """Represents an asteroid with its circumference in metres, position, velocity.
     Both position and velocity are vectors with x, y ,z coordinates measured in metres per second"""
