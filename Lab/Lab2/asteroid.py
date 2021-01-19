@@ -76,11 +76,13 @@ class Asteroid:
 
     def move(self) -> tuple:
         """
-        Moves the position of the asteroid by adding the vector of velocity to position and returns the new position.
+        Move asteroid by adding the vector of velocity to position, print new and old position, return the new position.
 
         :return: Tuple of the new position.
         """
+        old_position = self.__position
         self.__position = tuple(map(sum, zip(self.__position, self.__velocity)))
+        print(f"Asteroid {self.__id} Moved! Old Pos: {old_position} -> New Pos: {self.__position}")
         return self.__position
 
     def get_circumference(self) -> float:
