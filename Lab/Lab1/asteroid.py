@@ -1,5 +1,6 @@
 from itertools import count
-
+import math
+import random
 """
 Contains class representing an asteroid called Asteroid.
 """
@@ -32,6 +33,29 @@ class Asteroid:
         :return: none
         """
         self.__id = next(self.id_counter)
+
+    @staticmethod
+    def calculate_circumference(radius):
+        return 2 * radius * math.pi
+
+    @staticmethod
+    def generate_random_position(radius):
+        return random.randrange(radius, 100 - radius), \
+               random.randrange(radius, 100 - radius), \
+               random.randrange(radius, 100 - radius)
+
+    @staticmethod
+    def generate_random_velocity():
+        return random.randint(0, 5), \
+               random.randint(0, 5), \
+               random.randint(0, 5)
+
+    @staticmethod
+    def generate_random_asteroid(self):
+        radius = random.randrange(1, 4)
+        return Asteroid(self.calculate_circumference(radius),
+                        self.generate_random_position(radius),
+                        self.generate_random_velocity())
 
     def move(self) -> tuple:
         """
