@@ -1,4 +1,4 @@
-from Lab.Lab0.hypotenuse import calculate_hypotenuse
+from Lab.Lab1.hypotenuse import calculate_hypotenuse
 
 
 def add(a, b):
