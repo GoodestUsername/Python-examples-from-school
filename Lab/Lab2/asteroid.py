@@ -1,10 +1,9 @@
+"""This module implements the Asteroid class representing an asteroid."""
+
+
 from itertools import count
 import math
 import random
-
-"""
-Contains class representing an asteroid called Asteroid.
-"""
 
 
 class Asteroid:
@@ -13,15 +12,14 @@ class Asteroid:
     Both position and velocity are vectors with x y z coordinates that are measured in metres per second"""
     id_counter = count(1)
 
-    def __init__(self, circumference: float, position: tuple, velocity: tuple):
+    def __init__(self, circumference, position, velocity):
         """
         Initialize a new asteroid, with an incrementing id for each created asteroid starting with 1.
 
-        :precondition:  Circumference must be a positive number, position and velocity must be tuples with 3 numbers.
-        :postcondition: Initialize an object with float circumference, tuple with 3 numbers for position and velocity.
+        :precondition:  Circumference must be a positive integer, position and velocity must be tuples with 3 integers.
         :param circumference: A float
-        :param position: A tuple with 3 numbers
-        :param velocity: A tuple with 3 numbers
+        :param position: A tuple with 3 integers
+        :param velocity: A tuple with 3 integers
         """
         self.__circumference = circumference
         self.__position = position
@@ -39,17 +37,19 @@ class Asteroid:
     @staticmethod
     def calculate_circumference(radius):
         """
-        Return circumference of asteroid in metres given a radius in metres
-        :param radius: A number
+        Return circumference of asteroid in metres given a positive radius in metres.
+        :param radius: A positive integers
+        :precondition: Radius must be a positive integers.
         :return: Circumference calculated from radius.
         """
-        return 2 * radius * math.pi
+        if radius > 0:
+            return 2 * radius * math.pi
 
     @staticmethod
     def generate_random_position():
         """
         Generates random position of asteroid with a max range of 100.
-        :return: Tuple with three numbers.
+        :return: Tuple with three integers.
         """
         return random.randrange(100), random.randrange(100), random.randrange(100)
 
@@ -57,7 +57,7 @@ class Asteroid:
     def generate_random_velocity():
         """
         Generates random velocity of asteroid with a maximum of 5.
-        :return: Tuple with three numbers.
+        :return: Tuple with three integers.
         """
         return random.randrange(5), random.randrange(5), random.randrange(5)
 
@@ -74,7 +74,7 @@ class Asteroid:
                         Asteroid.generate_random_position(),
                         Asteroid.generate_random_velocity())
 
-    def move(self) -> tuple:
+    def move(self):
         """
         Move asteroid by adding the vector of velocity to position, print new and old position, return the new position.
 
@@ -85,49 +85,53 @@ class Asteroid:
         print(f"Asteroid {self.__id} Moved! Old Pos: {old_position} -> New Pos: {self.__position}")
         return self.__position
 
-    def get_circumference(self) -> float:
+    def get_circumference(self):
         """
-        :return: Returns the circumference as a float.
+        :return: Returns the circumference as a number.
         """
         return self.__circumference
 
-    def set_circumference(self, circumference: float):
+    def set_circumference(self, circumference):
         """
         Sets the circumference to the parameter.
-        :param circumference: A float.
-        :return: none
+        :param circumference: A positive integers.
+        :precondition: Circumference must be a positive number.
         """
-        self.__circumference = circumference
+        if circumference > 0:
+            self.__circumference = circumference
 
-    def get_position(self) -> tuple:
+    def get_position(self):
         """
-        Returns the position as a tuple with three floats representing x y z.
+        Returns the position as a tuple with three integers representing x y z.
         :return: A tuple with three floats.
         """
         return self.__position
 
-    def set_position(self, position: tuple):
+    def set_position(self, position):
         """
         Sets the position.
-        :param position: Tuple with three floats representing x y z.
+        :param position: Tuple with three integers representing x y z.
+        :precondition: Position must be tuple with three integers.
         :return: none.
         """
-        self.__position = position
+        if isinstance(position, tuple) & len(position) == 3 & all(element.is_integer() for element in position):
+            self.__position = position
 
-    def get_velocity(self) -> tuple:
+    def get_velocity(self):
         """
-        Returns the velocity as a tuple with three floats representing x y z.
+        Returns the velocity as a tuple with three integers representing x y z.
         :return: A tuple with three floats.
         """
         return self.__velocity
 
-    def set_velocity(self, velocity: tuple):
+    def set_velocity(self, velocity):
         """
         Sets the velocity.
-        :param velocity: Tuple with three floats representing x y z.
+        :param velocity: Tuple with three integers representing x y z.
         :return: none.
         """
-        self.__velocity = velocity
+        if isinstance(velocity, tuple) & len(velocity) == 3 & all(element.is_integer() for element in velocity):
+            self.__position = velocity
 
     circumference = property(get_circumference, set_circumference)
 
@@ -142,7 +146,7 @@ class Asteroid:
         return f"Asteroid ID: {self.__id} Circumference: {self.__circumference:} " \
                f"Position: {self.__position} Velocity: {self.__velocity}"
 
-    def __str__(self) -> str:
+    def __str__(self):
         """
         :return: string of this Asteroid's information
         """
