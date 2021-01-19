@@ -51,11 +51,11 @@ class Asteroid:
                random.randint(0, 5)
 
     @staticmethod
-    def generate_random_asteroid(self):
+    def generate_random_asteroid():
         radius = random.randrange(1, 4)
-        return Asteroid(self.calculate_circumference(radius),
-                        self.generate_random_position(radius),
-                        self.generate_random_velocity())
+        return Asteroid(Asteroid.calculate_circumference(radius),
+                        Asteroid.generate_random_position(radius),
+                        Asteroid.generate_random_velocity())
 
     def move(self) -> tuple:
         """
