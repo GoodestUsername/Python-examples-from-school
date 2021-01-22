@@ -28,13 +28,13 @@ class Controller:
         :precondition: seconds must be an int greater than 0
         """
         print("Simulation Start Time: ", datetime.now())
-        time.sleep((1000000 - datetime.now().microsecond) / 1000000)
+        time.sleep((1000000 - datetime.now().microsecond) / 1000000)  # delays by until start of next second.
         print("\n Moving Asteroids!\n -----------------")
         i = 0
         while i != seconds:
             for asteroid in self.list_of_asteroids:
                 asteroid.move()
-                print(self.list_of_asteroids[i])
+                print(asteroid)
             time.sleep(1)
             i += 1
 

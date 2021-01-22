@@ -10,7 +10,7 @@ class Asteroid:
     """Represents an asteroid with its circumference in metres, position, velocity.
 
     Both position and velocity are vectors with x y z coordinates that are measured in metres per second"""
-    id_counter = count(1)
+    id_counter = 0
 
     def __init__(self, circumference, position, velocity):
         """
@@ -24,15 +24,16 @@ class Asteroid:
         self.__circumference = circumference
         self.__position = position
         self.__velocity = velocity
-        self.handle_identifier(self)
+        self.__id = self.increment_id()
 
-    @staticmethod
-    def handle_identifier(self):
+    @classmethod
+    def increment_id(cls):
         """
-        Initializes the identifier of this object starting with 1, and incrementing by 1 for each created object.
-        :return: none
+        Increments static variable for asteroid id by 1, and returns new asteroid id.
+        :return: New id.
         """
-        self.__id = next(self.id_counter)
+        Asteroid.id_counter += 1
+        return Asteroid.id_counter
 
     @staticmethod
     def calculate_circumference(radius):
