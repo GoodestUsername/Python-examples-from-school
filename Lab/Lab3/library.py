@@ -12,7 +12,7 @@ class Library:
 
     def __init__(self, book_list):
         """
-        Intialize the library with a catalogue of books.
+        Initialize the library with a catalogue of library items.
         :param book_list: a sequence of book objects.
         """
         self._catalogue = Catalogue(book_list)
@@ -23,9 +23,9 @@ class Library:
         :param call_number: a string
         :precondition call_number: a unique identifier
         """
-        library_book = self._catalogue.retrieve_book_by_call_number(call_number)
+        library_book = self._catalogue.retrieve_library_item_by_call_number(call_number)
         if library_book.check_availability():
-            status = self._catalogue.reduce_book_count(call_number)
+            status = self._catalogue.reduce_library_item_count(call_number)
             if status:
                 print("Checkout complete!")
             else:
@@ -41,7 +41,7 @@ class Library:
         :param call_number: a string
         :precondition call_number: a unique identifier
         """
-        status = self._catalogue.increment_book_count(call_number)
+        status = self._catalogue.retrieve_library_item_by_call_number(call_number)
         if status:
             print("book returned successfully!")
         else:
@@ -85,7 +85,7 @@ class Library:
                 self.return_book(call_number)
             elif user_input == 4:
                 input_title = input("Enter the title of the book:")
-                found_titles = self._catalogue.find_books(input_title)
+                found_titles = self._catalogue.find_library_item(input_title)
                 print("We found the following:")
                 if len(found_titles) > 0:
                     for title in found_titles:
@@ -98,7 +98,7 @@ class Library:
 
             elif user_input == 6:
                 call_number = input("Enter the call number of the book")
-                self._catalogue.remove_book(call_number)
+                self._catalogue.remove_library_item(call_number)
 
             elif user_input == 7:
                 pass
@@ -114,7 +114,7 @@ class Library:
         """
         print("Books List")
         print("--------------", end="\n\n")
-        for library_book in self._catalogue.get_book_list():
+        for library_book in self._catalogue.get_library_item_list():
             print(library_book)
 
 
