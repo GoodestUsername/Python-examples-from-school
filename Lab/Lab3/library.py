@@ -94,7 +94,7 @@ class Library:
                     print("Sorry! We found nothing with that title")
 
             elif user_input == 5:
-                self._catalogue.add_book()
+                self._catalogue.add_item()
 
             elif user_input == 6:
                 call_number = input("Enter the call number of the book")

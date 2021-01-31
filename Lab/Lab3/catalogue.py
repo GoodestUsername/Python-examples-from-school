@@ -1,7 +1,5 @@
 import difflib
-from Lab.Lab3.book import Book
-from Lab.Lab3.dvd import DVD
-from Lab.Lab3.journal import Journal
+from Lab.Lab3.libraryitemgenerator import LibraryItemGenerator
 
 
 class Catalogue:
@@ -33,27 +31,21 @@ class Catalogue:
                                             cutoff=0.5)
         return results
 
-    def add_book(self):
+    def add_item(self):
         """
         Add a brand new book to the library with a unique call number.
         """
-        call_number = input("Enter Call Number: ")
-        title = input("Enter title: ")
-        num_copies = int(input("Enter number of copies "
-                               "(positive number): "))
-        book_data = (call_number, title, num_copies)
-        author = input("Enter Author Name: ")
-        new_book = Book(book_data[0], book_data[1], book_data[2], author)
+        new_library_item = LibraryItemGenerator.generate_library_item()
+        found_library_item = self.retrieve_library_item_by_call_number(
+            new_library_item.call_number)
 
-        found_book = self.retrieve_library_item_by_call_number(
-            new_book.call_number)
-        if found_book:
-            print(f"Could not add book with call number "
-                  f"{new_book.call_number}. It already exists. ")
+        if found_library_item:
+            print(f"Could not add item with call number "
+                  f"{new_library_item.call_number}. It already exists. ")
         else:
-            self._library_item_list.append(new_book)
-            print("book added successfully! book details:")
-            print(new_book)
+            self._library_item_list.append(new_library_item)
+            print("item added successfully! item details:")
+            print(new_library_item)
 
     def remove_library_item(self, call_number):
         """
