@@ -1,9 +1,12 @@
+""" This modules houses the catalogue"""
 import difflib
-from Lab.Lab3.libraryitemgenerator import LibraryItemGenerator
+from libraryitemgenerator import LibraryItemGenerator
 
 
 class Catalogue:
-
+    """
+    Class representing a catalogue of library items
+    """
     def __init__(self, item_list):
         """
         Initialize the library with a list of library items.

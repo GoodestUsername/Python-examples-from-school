@@ -1,3 +1,8 @@
+"""
+module containing the interface for library items
+"""
+
+
 class LibraryItem:
     """
         Represents an item in a library which is identified through

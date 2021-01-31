@@ -1,7 +1,6 @@
 """ This module houses the library"""
 from Lab.Lab3.book import Book
 from Lab.Lab3.catalogue import Catalogue
-import difflib
 
 
 class Library:
