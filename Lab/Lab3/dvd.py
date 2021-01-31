@@ -22,7 +22,7 @@ class DVD(LibraryItem):
         super().__init__(call_num, title, num_copies)
 
     def __str__(self):
-        return f"---- Book: {self.get_title()} ----\n" \
+        return f"---- DVD: {self.get_title()} ----\n" \
                f"Call Number: {self.call_number}\n" \
                f"Number of Copies: {self._num_copies}\n" \
                f"Release date: {self._release_date}\n" \
