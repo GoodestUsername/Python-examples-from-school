@@ -1,4 +1,4 @@
-from Lab.Lab3.libraryitem import LibraryItem
+from libraryitem import LibraryItem
 
 
 class Book(LibraryItem):
