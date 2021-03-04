@@ -149,18 +149,27 @@ def main():
 
     item = input("Enter item to auction: ")
     starting_price = get_valid_user_input_for_specified_type("Enter the starting price: ", float)
-    num_bidders = get_valid_user_input_for_specified_type("Enter the number of bidders: ", int)
+    hard_coded_or_manual_bidders = get_valid_user_input_for_specified_type("Enter 1 for hardcoded users: \n "
+                                                                           "Enter 2 for custom users: \n", int)
+    if hard_coded_or_manual_bidders is 1:
+        list_of_bidders.append(Bidder("Jojo", 3000, random.random(), 1.2))
+        list_of_bidders.append(Bidder("Melissa", 7000, random.random(), 1.5))
+        list_of_bidders.append(Bidder("Priya", 15000, random.random(), 1.1))
+        list_of_bidders.append(Bidder("Kewei", 800, random.random(), 1.9))
+        list_of_bidders.append(Bidder("Scott", 4000, random.random(), 2))
+    else:
+        num_bidders = get_valid_user_input_for_specified_type("Enter the number of bidders: ", int)
 
-    while list_of_bidders.__len__() != num_bidders:
-        name = input("Enter bidder name:")
-        budget = get_valid_user_input_for_specified_type("Enter the budget: ", float)
-        bid_increase_perc = get_valid_user_input_for_specified_type("Enter bid percentage increase in decimal form: ",
-                                                                    float)
-        bid_chance = 1
-        while bid_chance >= 1:
-            bid_chance = get_valid_user_input_for_specified_type("Enter chance, a decimal between 0 and 1 exclusive: ",
-                                                                 float)
-        list_of_bidders.append(Bidder(name, budget,bid_chance, bid_increase_perc))
+        while list_of_bidders.__len__() != num_bidders:
+            name = input("Enter bidder name:")
+            budget = get_valid_user_input_for_specified_type("Enter the budget: ", float)
+            bid_increase_perc = get_valid_user_input_for_specified_type("Enter bid percentage increase in decimal "
+                                                                        "form: ", float)
+            bid_chance = 1
+            while bid_chance >= 1:
+                bid_chance = get_valid_user_input_for_specified_type("Enter chance, a decimal between 0 and 1 "
+                                                                     "exclusive: ", float)
+            list_of_bidders.append(Bidder(name, budget,bid_chance, bid_increase_perc))
 
     print("\n\nStarting Auction!!")
     print("------------------")
