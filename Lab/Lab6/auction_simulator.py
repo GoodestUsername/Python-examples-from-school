@@ -151,7 +151,7 @@ def main():
     starting_price = get_valid_user_input_for_specified_type("Enter the starting price: ", float)
     hard_coded_or_manual_bidders = get_valid_user_input_for_specified_type("Enter 1 for hardcoded users: \n "
                                                                            "Enter 2 for custom users: \n", int)
-    if hard_coded_or_manual_bidders is 1:
+    if hard_coded_or_manual_bidders == 1:
         list_of_bidders.append(Bidder("Jojo", 3000, random.random(), 1.2))
         list_of_bidders.append(Bidder("Melissa", 7000, random.random(), 1.5))
         list_of_bidders.append(Bidder("Priya", 15000, random.random(), 1.1))
