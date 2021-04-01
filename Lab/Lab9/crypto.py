@@ -92,13 +92,22 @@ def setup_request_commandline() -> Request:
 
 
 class Crypto:
-
+    """
+    Class to handle en/decryption Requests.
+    """
     def __init__(self):
+        """
+        Constructor, sets up the start of handlers.
+        """
         self.encryption_start_handler = CryptionHandler.get_start_of_encryption_chain()
 
         self.decryption_start_handler = CryptionHandler.get_start_of_decryption_chain()
 
     def execute_request(self, request: Request):
+        """
+        Executes the (en/de)cryption request.
+        :param request: a Request.
+        """
         if request.encryption_state == CryptoMode.EN.value:
             self.encryption_start_handler.handler_request(request)
 
