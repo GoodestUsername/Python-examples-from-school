@@ -1,7 +1,12 @@
+from file_handler import FileHandler
+
+
 class Dictionary:
+    def __init__(self):
+        self.__dictionary = None
 
     def load_dictionary(self, file_path):
-        pass
+        self.__dictionary = FileHandler.load_data(file_path)
 
     def query_definition(self, word):
         pass
