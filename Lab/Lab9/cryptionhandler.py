@@ -175,7 +175,7 @@ class EncryptionHandler(CryptionHandler):
         :param request: a Request.
         """
 
-        request.result = DesKey(request.key).encrypt(request.data_input.encode(), padding=True)
+        request.result = DesKey(request.key).encrypt(request.data_input, padding=True)
 
         self.next_handler.handle_request(request)
 
