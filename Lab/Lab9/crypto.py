@@ -1,6 +1,4 @@
-import des
 import argparse
-import abc
 import enum
 
 from cryptionhandler import CryptionHandler, KeyLengthNotValidError
@@ -108,11 +106,11 @@ class Crypto:
         Executes the (en/de)cryption request.
         :param request: a Request.
         """
-        if request.encryption_state == CryptoMode.EN.value:
-            self.encryption_start_handler.handler_request(request)
+        if request.encryption_state == CryptoMode.EN:
+            self.encryption_start_handler.handle_request(request)
 
-        elif request.encryption_state == CryptoMode.DE.value:
-            self.encryption_start_handler.handler_request(request)
+        elif request.encryption_state == CryptoMode.DE:
+            self.encryption_start_handler.handle_request(request)
 
         else:
             print("Mode does not exist")

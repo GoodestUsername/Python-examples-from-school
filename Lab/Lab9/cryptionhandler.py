@@ -4,7 +4,10 @@ Modules contains interface and concrete methods for (EN/DE)cryption handlers.
 import abc
 import des
 import enum
+import ast
 from pathlib import Path
+
+from des import DesKey
 
 
 class ValidKeyLengths(enum.Enum):
@@ -33,7 +36,7 @@ class ValidKeyLengths(enum.Enum):
         """
         str_value = ""
         for value in cls._value2member_map_:
-            str_value += value + ", "
+            str_value = str_value + str(value) + ", "
 
         return str_value[:-2]
 
@@ -74,8 +77,8 @@ class CryptionHandler(abc.ABC):
         file_output_handler = FileOutputHandler()
 
         # set handler order, validate_key_handler > validate_file_handler > encryption_handler > post_encryption_handler
-        validate_key_handler.next_handler(validate_file_handler)
-        validate_file_handler.next_handler(encryption_handler)
+        validate_key_handler.set_handler(validate_file_handler)
+        validate_file_handler.set_handler(encryption_handler)
         encryption_handler.set_handler(post_encryption_handler)
         post_encryption_handler.set_handler(file_output_handler)
 
@@ -91,8 +94,8 @@ class CryptionHandler(abc.ABC):
         file_output_handler = FileOutputHandler()
 
         # set handler order, validate_key_handler > validate_file_handler > decryption_handler > post_encryption_handler
-        validate_key_handler.next_handler(validate_file_handler)
-        validate_file_handler.next_handler(decryption_handler)
+        validate_key_handler.set_handler(validate_file_handler)
+        validate_file_handler.set_handler(decryption_handler)
         decryption_handler.set_handler(post_encryption_handler)
         post_encryption_handler.set_handler(file_output_handler)
 
@@ -105,10 +108,11 @@ class IsValidKeyHandler(CryptionHandler):
     """
 
     def handle_request(self, request):
-        if ValidKeyLengths.has_value(len(request.data_input)):
+        request.key = str.encode(request.key)
+        if ValidKeyLengths.has_value(len(request.key)):
             self.next_handler.handle_request(request)
         else:
-            raise KeyLengthNotValidError("Key length is not valid, need to be one of :" + ValidKeyLengths.__str__)
+            raise KeyLengthNotValidError("Key length is not valid, need to be one of: " + ValidKeyLengths.__str__())
 
 
 class InputFileHandler(CryptionHandler):
@@ -170,7 +174,8 @@ class EncryptionHandler(CryptionHandler):
         Handles decryption from request.
         :param request: a Request.
         """
-        request.result = des.DesKey(request.key).encrypt(request.data_input)
+
+        request.result = DesKey(request.key).encrypt(request.data_input.encode(), padding=True)
 
         self.next_handler.handle_request(request)
 
@@ -185,8 +190,9 @@ class DecryptionHandler(CryptionHandler):
         Handles decryption from request.
         :param request: a Request.
         """
-        request.result = des.DesKey(request.key).decrypt(request.data_input)
 
+        data_decrypt = ast.literal_eval(request.data_input)
+        request.result = DesKey(request.key).decrypt(data_decrypt, padding=True)
         self.next_handler.handle_request(request)
 
 
