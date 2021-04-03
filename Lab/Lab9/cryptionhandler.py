@@ -108,7 +108,9 @@ class IsValidKeyHandler(CryptionHandler):
     """
 
     def handle_request(self, request):
-        request.key = str.encode(request.key)
+        if type(request.key) == str:
+            request.key = str.encode(request.key)
+
         if ValidKeyLengths.has_value(len(request.key)):
             self.next_handler.handle_request(request)
         else:
@@ -174,8 +176,13 @@ class EncryptionHandler(CryptionHandler):
         Handles decryption from request.
         :param request: a Request.
         """
+        data_input = request.data_input
 
-        request.result = DesKey(request.key).encrypt(request.data_input, padding=True)
+        if type(data_input) == bytes:
+            request.result = DesKey(request.key).encrypt(request.data_input, padding=True)
+
+        else:
+            request.result = DesKey(request.key).encrypt(request.data_input.encode(), padding=True)
 
         self.next_handler.handle_request(request)
 

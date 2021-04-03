@@ -110,7 +110,7 @@ class Crypto:
             self.encryption_start_handler.handle_request(request)
 
         elif request.encryption_state == CryptoMode.DE:
-            self.encryption_start_handler.handle_request(request)
+            self.decryption_start_handler.handle_request(request)
 
         else:
             print("Mode does not exist")
